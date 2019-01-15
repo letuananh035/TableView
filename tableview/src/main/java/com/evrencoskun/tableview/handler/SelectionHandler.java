@@ -62,6 +62,16 @@ public class SelectionHandler {
 
     public void setSelectedCellPositions(AbstractViewHolder selectedViewHolder, int column, int
             row) {
+        if(this.mSelectedColumnPosition == column && this.mSelectedRowPosition == row){
+            if (mPreviousSelectedViewHolder != null && mPreviousSelectedViewHolder.isSelected()) {
+                restorePreviousSelectedView();
+                // Change color
+                mPreviousSelectedViewHolder.setBackgroundColor(mTableView.getUnSelectedColor());
+                // Change state
+                mPreviousSelectedViewHolder.setSelected(SelectionState.UNSELECTED);
+                return;
+            }
+        }
         this.setPreviousSelectedView(selectedViewHolder);
 
         this.mSelectedColumnPosition = column;
